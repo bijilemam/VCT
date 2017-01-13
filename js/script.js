@@ -11,7 +11,6 @@ function initializePlayer(){
 	mutebtn = document.getElementById("mutebtn");
 	volumeslider = document.getElementById("volumeslider");
 	fullscreenbtn = document.getElementById("fullscreenbtn");
-	vid.addEventListener("ended",onFinish,false);
 
 	//video element two
 	vid2 = document.getElementById("my_video2");
@@ -24,6 +23,7 @@ function initializePlayer(){
 	mutebtn.addEventListener("click",vidMute,false);
 	volumeslider.addEventListener("change",setVolume,false);
 	fullscreenbtn.addEventListener("click",toggleFullScreen,false);
+	vid.addEventListener("ended",onFinish,false);
 
 	vid2.muted = true;
 }
