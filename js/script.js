@@ -11,6 +11,7 @@ function initializePlayer(){
 	mutebtn = document.getElementById("mutebtn");
 	volumeslider = document.getElementById("volumeslider");
 	fullscreenbtn = document.getElementById("fullscreenbtn");
+	vid.addEventListener("ended",onFinish,false);
 
 	//video element two
 	vid2 = document.getElementById("my_video2");
@@ -123,4 +124,8 @@ function toggleFullScreen(){
 		} else if (vid.webkitRequestFullscreen) {
 			vid.webkitRequestFullscreen(); // Chrome and Safari			
 		}
+}
+
+function onFinish(){
+	playbtn.style.background = "url(img/play1.png)";
 }
