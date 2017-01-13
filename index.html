@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Video comparison Tool</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="video_player_box">
+    <video id="my_video" width="640" height="320">
+        <source src="http://10.0.20.15/lowres/b3db3b12-b7f4-4864-8483-e5d65f5b09df_1.mp4" type="video/mp4">
+    </video>    
+</div>
+<div id="video_player_box2">
+    <video id="my_video2" width="640" height="320">
+        <source src="http://10.0.20.15/lowres/f6ff6af8-8973-4ae0-aa22-dfc2ac4b1999_1.mp4" type="video/mp4">
+    </video>    
+</div>
+<div id="video_controls_bar">
+        <button id="playpausebtn"></button>        
+        <input id="seekslider" type="range" min="0" max="100" value="0" step="1">
+        <span><span id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span></span>
+        <button id="mutebtn"></button>
+        <input id="volumeslider" type="range" min="0" max="100" value="100" step="1">
+        <button id="fullscreenbtn"></button>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
