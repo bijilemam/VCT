@@ -1,0 +1,345 @@
+body,html{
+	height: 100%;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+.header{
+	overflow: hidden;
+	min-width: 380px;
+	width: 100%;
+	background: #efefef;
+}
+.header ul{
+	overflow: hidden;
+	margin-left: 10px;
+	padding: 8px 0;
+}
+.header li{
+	list-style: none;
+	display: inline;
+	float: left;
+}
+.header li.stackH,.header li.stackV{
+	background: url("../img/layout_change_icon.png");
+	width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+.header li.stackV{
+	margin-left: 5px;
+}
+.header li.stackH {
+    background-position: -25px 0px;
+}
+.mainContent{
+    overflow: hidden;
+    background: #efefef;
+}
+.main-left,.main-right{
+	float: left;
+	width: 50%;
+	overflow: auto;
+	height: 50%;
+}
+.left-inner-content{
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top: 20px;
+}
+.right-inner-content{
+    padding-left: 5px;
+    padding-right: 10px;
+    padding-top: 20px;
+}
+.left-inner-content,.right-inner-content{
+}
+.left-inner-main,.right-inner-main{
+	background: #FFF;
+	overflow: auto;
+	padding: 0 10px;
+	height: 50%;
+}
+.left-inner-main div,.right-inner-main div{
+	height: initial;
+}
+#mainContentHolder{
+	position: relative;
+}
+#draggable{
+	position: absolute;
+    z-index: 3;
+    width: 10px;
+    height: 10%;
+    cursor: col-resize;
+    background: transparent;
+    background: url(../img/scro.jpg);
+    background-repeat: no-repeat !important;
+    margin-top: 125px;
+    /*pointer-events: none;*/
+}
+#my_video{
+	 position: relative;
+  /*padding-bottom: 56%;*/
+  height: 0;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  padding-top: 10px;
+}
+#my_video2{
+	 position: relative;
+  /*padding-bottom: 56%;*/
+  height: 0;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  padding-top: 10px;
+}
+div#video_controls_bar{
+	background: #fff;
+	padding: 10px;
+	color: #ccc;
+	font-weight: "Trebuchet MS";
+	float: left;
+	width: 98%;
+    height: 7%;
+	display:flex;
+	border:2px solid #f1f1f1;
+}
+
+
+
+
+div#video_player_box{
+	width: 100%;
+
+	background: #000;
+	/*margin: 0px auto;*/
+	float: left;
+}
+
+button#playpausebtn{
+	background: url(../img/play1.png);
+	border: none;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+}
+button#mutebtn{
+	background: url(../img/muteoff.png);
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+    margin-top: 3px;
+    margin-left: 7px;
+    margin-right: 3px;
+}
+button#fullscreenbtn{
+	background: url(../img/fullscreen.png);
+	border: none;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+	margin-left:10px;
+}
+
+input#seekslider{
+	width: 960px;
+	padding-bottom: 13px;
+}
+input#volumeslider{
+	width: 80px;
+	padding-bottom: 13px;
+}
+#video_controls_bar > span{
+	display:inline-block;
+	padding-top:7px;
+	color:#555;
+	font-family:'Arial';
+    margin-left: auto;
+}
+div#video_controls_bar2{
+	background: #333;
+	padding: 10px;
+	color: #ccc;
+	font-weight: "Trebuchet MS";
+}
+div#video_player_box2{
+	width: 640px;
+	background: #000;
+	/*margin: 0px auto;*/
+	float: left;
+}
+input#seekslider2{
+	width: 240px;
+}
+input#volumeslider2{
+	width: 80px;
+}
+
+button#stepforward{
+    background: url(../img/stepforward.png);
+    border: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left:10px;
+}
+button#stepbackward{
+    background: url(../img/stepback.png);
+    border: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left:10px;
+}
+button#switchscreen{
+    background: url(../img/switchscreen.png);
+    border: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left:10px;
+}
+
+
+::-webkit-media-controls {
+  display:none !important;
+}
+
+/*Chrome*/
+input[type=range]{
+    -webkit-appearance: none;
+}
+	
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+    margin-top: -5px;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+}
+
+/*Mozilla*/
+input[type=range]{
+    /* fix for FF unable to apply focus style bug  */
+    border: 1px solid white; 
+
+    /*required for proper track sizing in FF*/
+    width: 300px;
+}
+
+input[type=range]::-moz-range-track {
+    width: 300px;
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+}
+
+/*hide the outline behind the border*/
+input[type=range]:-moz-focusring{
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+
+input[type=range]:focus::-moz-range-track {
+    background: #ccc;
+}
+
+/*internet Explorer*/
+input[type=range]::-ms-track {
+    width: 300px;
+    height: 5px;
+    
+    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+    background: transparent;
+    
+    /*leave room for the larger thumb to overflow with a transparent border */
+    border-color: transparent;
+    border-width: 6px 0;
+
+    /*remove default tick marks*/
+    color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+    background: #777;
+    border-radius: 10px;
+}
+input[type=range]::-ms-fill-upper {
+    background: #ddd;
+    border-radius: 10px;
+}
+input[type=range]::-ms-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+}
+input[type=range]:focus::-ms-fill-lower {
+    background: #888;
+}
+input[type=range]:focus::-ms-fill-upper {
+    background: #ccc;
+}
+
+#timeline{
+    width: 400px;
+    height: 20px;
+    margin-top: 20px;
+    float: left;
+    border-radius: 15px;
+    background: rgba(0,0,0,.3);
+  
+}
+#playhead{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    margin-top: 1px;
+    background: rgba(0, 0, 0,1);
+
+}
