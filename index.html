@@ -1,31 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
-    <title>Video comparison Tool</title>
+    <meta name="viewport" content="width=device-width">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
 
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-<div id="video_player_box">
-    <video id="my_video" width="640" height="320" preload="metadata">
-        <source src="videos/oceans.mp4" type="video/mp4">
-    </video>    
-</div>
-<div id="video_player_box2">
-    <video id="my_video2" width="640" height="320" preload="metadata">
-        <source src="videos/oceans.mp4" type="video/mp4">
-    </video>    
-</div>
-<div id="video_controls_bar">
+    <title>Video Comparison Tool</title>
+
+    <link href="css/main.css" rel="stylesheet">
+    <script src="js/1.12.4/jquery.min.js"></script>
+    <script src="js/1.12.4/jquery-ui.js"></script>   
+    <script type="text/javascript">
+    	$( document ).ready(function() {
+    		var lastPosition = null;
+		    resizeWindow();
+		    $( window ).resize(function() {
+		  		resizeWindow()
+			});
+
+			function calculatepercent(position) {
+				var a = position;
+				var b = $("body").width();
+				var c = $("body").width() - position;
+
+				$('div.main-left').width((returnPerCalc(a,b) + .4) + '%');
+				$('div.main-right').width((returnPerCalc(c,b) - .5) + '%');
+			};
+
+			function returnPerCalc(a,b){
+				var c = a/b;
+				var d = c*100;
+				return d;
+			};
+
+			$( "#draggable" ).draggable({ 
+				axis: "x",
+				start: function(a) {
+					calculatepercent(a.target.offsetLeft);
+				},
+				drag: function(b) {
+					calculatepercent(b.target.offsetLeft);
+				},
+				stop: function(c) {
+					calculatepercent(c.target.offsetLeft);
+					lastPosition = c.target.offsetLeft;
+				}
+			});
+
+			function resizeWindow(){
+				/*$("#mainContent").height($("body").height() - $(".header").height());
+		    	$("#mainContentHolder,.left-inner-main,.right-inner-main,#draggable").height($("body").height() - ($(".header").height() + 10));*/
+
+		    	// Convert the width from px to %
+		    	var percent = $("div.main-left").width() / $("body").width() * 100;
+
+		    	// Get the left postion of drag bar div incase window resized
+		    	var position = (lastPosition != null)?((percent * $("body").width())/100):(($("body").width()/2));
+
+		    	$("#draggable").css({
+				   'left'	: position-5
+				});
+			};
+		});
+    </script>
+  </head>
+
+  <body>	 
+
+	 <div id="mainContent" class="mainContent">		
+		 	
+		 	<div class="main-left">
+		 		<div class="left-inner-content">
+		 			<div class="left-inner-main">
+		 				<video id="my_video" preload="metadata">
+        					<source id="src1" src="videos/oceans.mp4" type="video/mp4">
+    					</video> 
+		 			</div>
+		 		</div>
+		 	</div>
+		 	<div id="draggable"></div>
+		 	<div class="main-right">
+		 		<div class="right-inner-content">
+		 			<div class="right-inner-main">
+		 				<video id="my_video2" preload="metadata">
+        					<source id="src12" src="videos/oceans.mp4" type="video/mp4">
+    					</video>
+		 			</div>
+		 		</div>		 	
+	 		</div>
+	 </div>
+	 <div id="video_controls_bar">
         <button id="playpausebtn"></button>        
         <input id="seekslider" type="range" min="0" max="100" value="0" step="1">
         <span><span id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span></span>
         <button id="mutebtn"></button>
         <input id="volumeslider" type="range" min="0" max="100" value="100" step="1">
         <button id="fullscreenbtn"></button>
-    </div>
-
-    <script src="js/script.js"></script>
-</body>
+        <button id="stepforward"></button>
+        <button id="stepbackward"></button>       
+        <button id="switchscreen"></button>        
+</div>
+<script src="js/script.js"></script>  
+  </body>  
 </html>
