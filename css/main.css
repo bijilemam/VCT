@@ -343,3 +343,11 @@ input[type=range]:focus::-ms-fill-upper {
     background: rgba(0, 0, 0,1);
 
 }
+#cstatus{
+	font-family: sans-serif;
+	font-size: large;
+}
+#lbl{
+	font-family: sans-serif;
+	font-size: large;
+}
