@@ -1,5 +1,5 @@
 
-var vid, playbtn,seekslider,curtimetext,durtimetext,mutebtn,volumeslider,fullscreenbtn,vid2,stepforward,stepbackward,next,previous,switchscreen,count,playerdiv,screenshot,dragdiv,counter,curdivheight,dragdivval;
+var vid, playbtn,seekslider,curtimetext,durtimetext,mutebtn,volumeslider,fullscreenbtn,vid2,stepforward,stepbackward,next,previous,switchscreen,count,playerdiv,screenshot,dragdiv,counter,curdivheight,dragdivval,lbl;
 function initializePlayer(){
 	//Set object references
 	//video element one	
@@ -22,7 +22,7 @@ function initializePlayer(){
 	playerdiv = document.getElementById("mainContent");
 	/*screenshot = document.getElementById("screenshot");*/
 	dragdiv = document.getElementById("draggable");
-
+	lbl = document.getElementById("lbl");
 
 	//video element two
 	vid2 = document.getElementById("my_video2");
@@ -150,9 +150,9 @@ function toggleFullScreen(){
 		
 		if(count == 1){
 			//resize enabled show both screen
-			curdivheight = playerdiv.offsetHeight;
+			curdivheight = playerdiv.offsetHeight;//screen.height
 			dragdivval = curdivheight/2;
-			dragdiv.style.marginTop = dragdivval.ToString()+'px';
+			dragdiv.style.marginTop = dragdivval.toString()+'px';
 			if (vid.requestFullscreen) {
 				playerdiv.requestFullscreen();
 			} else if (vid.mozRequestFullScreen) {
@@ -243,11 +243,13 @@ function toggleScreen(){
 	count += 1;
 	if(count == 1){
 		//alert('resize enabled');
+		lbl.innerHTML = 'Resize Enabled';
 		dragdiv.style.pointerEvents = "auto";	
 		dragdiv.style.background = "url(img/scro.jpg)";	
 	}
 	else if(count == 2){
 		//alert('mirror view applied on second video');
+		lbl.innerHTML = 'Mirror view enabled for second video';
 		dragdiv.style.pointerEvents = "none";
 		dragdiv.style.background = "url(img/a.png)";	
 		vid2.style.transform = "rotateY(180deg)";
@@ -256,6 +258,7 @@ function toggleScreen(){
 	}
 	else{
 		//alert('mirror view disabled on second video');
+		lbl.innerHTML = 'Normal mode';
 		vid2.style.transform = "rotateY(360deg)";
 		vid2.style.webkitTransform = "rotateY(360deg)";		
 		vid2.style.mozTransform = "rotateY(360deg)";
