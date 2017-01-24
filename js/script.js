@@ -1,8 +1,11 @@
 
-var vid, playbtn,seekslider,curtimetext,durtimetext,mutebtn,volumeslider,fullscreenbtn,vid2;
+var vid, playbtn,seekslider,curtimetext,durtimetext,mutebtn,volumeslider,fullscreenbtn,vid2,stepforward,stepbackward,next,previous,switchscreen,count,playerdiv,screenshot,dragdiv,counter,curdivheight,dragdivval;
 function initializePlayer(){
 	//Set object references
-	//video element one
+	//video element one	
+	/*var scaleFactor = 0.25;
+	var snapshots = [];*/
+
 	vid = document.getElementById("my_video");
 	playbtn = document.getElementById("playpausebtn");
 	seekslider = document.getElementById("seekslider");
@@ -11,10 +14,29 @@ function initializePlayer(){
 	mutebtn = document.getElementById("mutebtn");
 	volumeslider = document.getElementById("volumeslider");
 	fullscreenbtn = document.getElementById("fullscreenbtn");
+	stepforward = document.getElementById("stepforward");
+	stepbackward = document.getElementById("stepbackward");
+	/*next = document.getElementById("next");
+	previous = document.getElementById("previous");*/
+	switchscreen = document.getElementById("switchscreen");
+	playerdiv = document.getElementById("mainContent");
+	/*screenshot = document.getElementById("screenshot");*/
+	dragdiv = document.getElementById("draggable");
+
 
 	//video element two
 	vid2 = document.getElementById("my_video2");
 	
+	count = 0;
+	counter = 0;
+	vid2.muted = true;
+	dragdiv.style.pointerEvents = "none";
+	dragdiv.style.background = "url(img/a.png)";
+	/*vid.style.width = "640px";
+	vid2.style.width = "640px";
+	vid.style.height = "320px";
+	vid2.style.height = "320px";*/
+		
 	//Add Event listeners
 	//video element one listeners
 	playbtn.addEventListener("click",playPause,false);
@@ -25,12 +47,18 @@ function initializePlayer(){
 	fullscreenbtn.addEventListener("click",toggleFullScreen,false);
 	vid.addEventListener("ended",onFinish,false);
 
-	vid2.muted = true;
+	stepforward.addEventListener("click",stepVideoForward,false);
+	stepbackward.addEventListener("click",stepVideoBackward,false);
+	/*next.addEventListener("click",stepVideoNext,false);
+	previous.addEventListener("click",stepVideoPrevious,false);*/
+	switchscreen.addEventListener("click",toggleScreen,false);
+	/*screenshot.addEventListener("click",shoot,false);*/
+	
 }
 window.onload = initializePlayer();
 
 //video one functions
-function playPause() {	
+function playPause() {		
 	if(vid.paused){
 		vid.play();
 		playbtn.style.background = "url(img/pause.png)";
@@ -117,15 +145,121 @@ function setVolume(){
 }
 
 function toggleFullScreen(){
-	if (vid.requestFullscreen) {
-			vid.requestFullscreen();
-		} else if (vid.mozRequestFullScreen) {
-			vid.mozRequestFullScreen(); // Firefox
-		} else if (vid.webkitRequestFullscreen) {
-			vid.webkitRequestFullscreen(); // Chrome and Safari			
+	counter += 1;
+	if(counter == 1){
+		
+		if(count == 1){
+			//resize enabled show both screen
+			curdivheight = playerdiv.offsetHeight;
+			dragdivval = curdivheight/2;
+			dragdiv.style.marginTop = dragdivval.ToString()+'px';
+			if (vid.requestFullscreen) {
+				playerdiv.requestFullscreen();
+			} else if (vid.mozRequestFullScreen) {
+				playerdiv.mozRequestFullScreen(); // Firefox
+			} else if (vid.webkitRequestFullscreen) {
+				playerdiv.webkitRequestFullscreen(); // Chrome and Safari			
+			}	
 		}
+		else if(count == 2){
+			//mirror view- show
+			if (vid.requestFullscreen) {
+				playerdiv.requestFullscreen();
+			} else if (vid.mozRequestFullScreen) {
+				playerdiv.mozRequestFullScreen(); // Firefox
+			} else if (vid.webkitRequestFullscreen) {
+				playerdiv.webkitRequestFullscreen(); // Chrome and Safari			
+			}
+		}
+		else{
+			if (vid.requestFullscreen) {
+				vid.requestFullscreen();
+			} else if (vid.mozRequestFullScreen) {
+				vid.mozRequestFullScreen(); // Firefox
+			} else if (vid.webkitRequestFullscreen) {
+				vid.webkitRequestFullscreen(); // Chrome and Safari			
+			}
+		}		
+	}
+	else if(counter == 2){
+		if(count == 1){
+			//resize enabled show both screen
+			if (vid.requestFullscreen) {
+				playerdiv.requestFullscreen();
+			} else if (vid.mozRequestFullScreen) {
+				playerdiv.mozRequestFullScreen(); // Firefox
+			} else if (vid.webkitRequestFullscreen) {
+				playerdiv.webkitRequestFullscreen(); // Chrome and Safari			
+			}	
+		}
+		else if(count == 2){
+			//mirror view- show
+			if (vid.requestFullscreen) {
+				playerdiv.requestFullscreen();
+			} else if (vid.mozRequestFullScreen) {
+				playerdiv.mozRequestFullScreen(); // Firefox
+			} else if (vid.webkitRequestFullscreen) {
+				playerdiv.webkitRequestFullscreen(); // Chrome and Safari			
+			}
+		}
+		else{
+			if (vid2.requestFullscreen) {
+				vid2.requestFullscreen();
+			} else if (vid2.mozRequestFullScreen) {
+				vid2.mozRequestFullScreen(); // Firefox
+			} else if (vid2.webkitRequestFullscreen) {
+				vid2.webkitRequestFullscreen(); // Chrome and Safari			
+			}
+		}
+		counter = 0;
+	}
+	else{
+
+	}
+
 }
 
 function onFinish(){
 	playbtn.style.background = "url(img/play1.png)";
+}
+
+function stepVideoForward(){
+	vid.currentTime += 1;
+	vid2.currentTime += 1;
+	vid.pause();
+	vid2.pause();
+	playbtn.style.background = "url(img/play1.png)";
+}
+
+function stepVideoBackward(){
+	vid.currentTime -= 1;
+	vid2.currentTime -= 1;
+	vid.pause();
+	vid2.pause();
+	playbtn.style.background = "url(img/play1.png)";
+}
+
+function toggleScreen(){
+	count += 1;
+	if(count == 1){
+		//alert('resize enabled');
+		dragdiv.style.pointerEvents = "auto";	
+		dragdiv.style.background = "url(img/scro.jpg)";	
+	}
+	else if(count == 2){
+		//alert('mirror view applied on second video');
+		dragdiv.style.pointerEvents = "none";
+		dragdiv.style.background = "url(img/a.png)";	
+		vid2.style.transform = "rotateY(180deg)";
+		vid2.style.webkitTransform = "rotateY(180deg)";		
+		vid2.style.MozTransform = "rotateY(180deg)";		
+	}
+	else{
+		//alert('mirror view disabled on second video');
+		vid2.style.transform = "rotateY(360deg)";
+		vid2.style.webkitTransform = "rotateY(360deg)";		
+		vid2.style.mozTransform = "rotateY(360deg)";
+		count = 0;
+	}
+			
 }
