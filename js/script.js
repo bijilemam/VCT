@@ -1,12 +1,10 @@
 
-var vid, playbtn,seekslider,curtimetext,durtimetext,mutebtn,volumeslider,fullscreenbtn,vid2,stepforward,stepbackward,next,previous,switchscreen,count,playerdiv,screenshot,dragdiv,counter,curdivheight,dragdivval,lbl;
-function initializePlayer(){
-	//Set object references
-	//video element one	
-	/*var scaleFactor = 0.25;
-	var snapshots = [];*/
+var vid, playbtn,seekslider,curtimetext,durtimetext,mutebtn,volumeslider,fullscreenbtn,vid2,stepforward,stepbackward,
+next,previous,switchscreen,count,playerdiv,screenshot,dragdiv,counter,curdivheight,dragdivval,lbl,txtJump,btnJump;
+function initializePlayer(){	
 
 	vid = document.getElementById("my_video");
+	vid2 = document.getElementById("my_video2");
 	playbtn = document.getElementById("playpausebtn");
 	seekslider = document.getElementById("seekslider");
 	curtimetext = document.getElementById("curtimetext");
@@ -15,27 +13,22 @@ function initializePlayer(){
 	volumeslider = document.getElementById("volumeslider");
 	fullscreenbtn = document.getElementById("fullscreenbtn");
 	stepforward = document.getElementById("stepforward");
-	stepbackward = document.getElementById("stepbackward");
-	/*next = document.getElementById("next");
-	previous = document.getElementById("previous");*/
+	stepbackward = document.getElementById("stepbackward");	
 	switchscreen = document.getElementById("switchscreen");
-	playerdiv = document.getElementById("mainContent");
-	/*screenshot = document.getElementById("screenshot");*/
+	playerdiv = document.getElementById("mainContent");	
 	dragdiv = document.getElementById("draggable");
 	lbl = document.getElementById("lbl");
-
-	//video element two
-	vid2 = document.getElementById("my_video2");
+	txtJump = document.getElementById("txtJump");
+	btnJump = document.getElementById("btnJump");
+		
 	
 	count = 0;
 	counter = 0;
 	vid2.muted = true;
 	dragdiv.style.pointerEvents = "none";
 	dragdiv.style.background = "url(img/a.png)";
-	/*vid.style.width = "640px";
-	vid2.style.width = "640px";
-	vid.style.height = "320px";
-	vid2.style.height = "320px";*/
+	lbl.innerHTML = 'Normal mode';
+	vid.frameRate = 29.97;	
 		
 	//Add Event listeners
 	//video element one listeners
@@ -48,11 +41,10 @@ function initializePlayer(){
 	vid.addEventListener("ended",onFinish,false);
 
 	stepforward.addEventListener("click",stepVideoForward,false);
-	stepbackward.addEventListener("click",stepVideoBackward,false);
-	/*next.addEventListener("click",stepVideoNext,false);
-	previous.addEventListener("click",stepVideoPrevious,false);*/
+	stepbackward.addEventListener("click",stepVideoBackward,false);	
 	switchscreen.addEventListener("click",toggleScreen,false);
-	/*screenshot.addEventListener("click",shoot,false);*/
+	btnJump.addEventListener("click",jumpToFrame,false);	
+	txtJump.addEventListener("click",pauseVideo,false);
 	
 }
 window.onload = initializePlayer();
@@ -101,6 +93,7 @@ function seekTimeUpdate(){
 		}
 		curtimetext.innerHTML = curmins+":"+cursecs;
 		durtimetext.innerHTML = durmins+":"+dursecs;
+		txtJump.value = vid.currentTime;
 	}
 	else{
 		var nt2 = vid2.currentTime * (100/ vid2.duration);
@@ -123,6 +116,7 @@ function seekTimeUpdate(){
 		}
 		curtimetext.innerHTML = curmins2+":"+cursecs2;
 		durtimetext.innerHTML = durmins2+":"+dursecs2;
+		txtJump.value = vid2.currentTime;
 	}
 
 }
@@ -250,8 +244,8 @@ function toggleScreen(){
 	else if(count == 2){
 		//alert('mirror view applied on second video');
 		lbl.innerHTML = 'Mirror view enabled for second video';
-		dragdiv.style.pointerEvents = "none";
-		dragdiv.style.background = "url(img/a.png)";	
+		//dragdiv.style.pointerEvents = "none";
+		//dragdiv.style.background = "url(img/a.png)";	
 		vid2.style.transform = "rotateY(180deg)";
 		vid2.style.webkitTransform = "rotateY(180deg)";		
 		vid2.style.MozTransform = "rotateY(180deg)";		
@@ -262,7 +256,42 @@ function toggleScreen(){
 		vid2.style.transform = "rotateY(360deg)";
 		vid2.style.webkitTransform = "rotateY(360deg)";		
 		vid2.style.mozTransform = "rotateY(360deg)";
+		dragdiv.style.pointerEvents = "none";
+		dragdiv.style.background = "url(img/a.png)";	
 		count = 0;
 	}
 			
+}
+function jumpToFrame(){
+	//alert(vid.duration);
+	if(vid.duration > vid2.duration){
+		if(txtJump.value > vid.duration || txtJump.value < 0 || isNaN(txtJump.value)){
+			alert('you have entered an incorrect time frame');
+		}
+		else{
+			vid.currentTime = txtJump.value;
+			vid2.currentTime = txtJump.value;
+		}
+	}
+	else{
+		if(txtJump.value > vid.duration || txtJump.value < 0 || isNaN(txtJump.value)){
+			alert('you have entered an incorrect time frame');
+		}
+		else{
+			vid.currentTime = txtJump.value;
+			vid2.currentTime = txtJump.value;
+		}
+	}
+	
+}
+function pauseVideo(){
+	vid.pause();
+	vid2.pause();
+	playbtn.style.background = "url(img/play1.png)";
+	/*var w = 300;
+	var h = 300;
+	var left = (window.screen.width/2)-(w/2);
+	var top = (window.screen.height/2)-(h/2);
+
+	var win = window.open("index.html", "_blank", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);*/
 }
