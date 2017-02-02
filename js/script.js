@@ -1,6 +1,6 @@
 
 var vid, playbtn,seekslider,curtimetext,durtimetext,mutebtn,volumeslider,fullscreenbtn,vid2,stepforward,stepbackward,
-next,previous,switchscreen,count,playerdiv,screenshot,dragdiv,counter,curdivheight,dragdivval,lbl,txtJump,btnJump;
+next,previous,switchscreen,count,playerdiv,screenshot,dragdiv,counter,curdivheight,dragdivval,lbl,txtJump,btnJump,lblvps;
 function initializePlayer(){	
 
 	vid = document.getElementById("my_video");
@@ -20,7 +20,7 @@ function initializePlayer(){
 	lbl = document.getElementById("lbl");
 	txtJump = document.getElementById("txtJump");
 	btnJump = document.getElementById("btnJump");
-		
+	lblvps = document.getElementById("lblvps");
 	
 	count = 0;
 	counter = 0;
@@ -94,6 +94,35 @@ function seekTimeUpdate(){
 		curtimetext.innerHTML = curmins+":"+cursecs;
 		durtimetext.innerHTML = durmins+":"+dursecs;
 		txtJump.value = vid.currentTime;
+		if(vid.readyState == 0){
+			lblvps.innerHTML = "No information is available about the media resource.";
+		}
+		else if(vid.readyState == 1){
+			lblvps.innerHTML = "Enough of the media resource has been retrieved that the metadata attributes are initialized. Seeking will no longer raise an exception.";
+		}
+		else if(vid.readyState == 2){
+			lblvps.innerHTML = "Data is available for the current playback position, but not enough to actually play more than one frame.";
+		}
+		else if(vid.readyState == 3){
+			lblvps.innerHTML = "Data for the current playback position as well as for at least a little bit of time into the future is available (in other words, at least two frames of video, for example).";	
+		}
+		else if(vid.readyState == 4){
+			lblvps.innerHTML = "Enough data is available—and the download rate is high enough—that the media can be played through to the end without interruption.";
+		}
+		else{
+
+		}
+
+		/*if(vid.currentTime != vid2.currentTime){
+			vid.currentTime = vid2.currentTime;	
+		}
+		else if(vid2.currentTime != vid.currentTime){
+			vid2.currentTime = vid.currentTime;	
+		}
+		else{
+			
+		}*/
+		
 	}
 	else{
 		var nt2 = vid2.currentTime * (100/ vid2.duration);
@@ -117,6 +146,33 @@ function seekTimeUpdate(){
 		curtimetext.innerHTML = curmins2+":"+cursecs2;
 		durtimetext.innerHTML = durmins2+":"+dursecs2;
 		txtJump.value = vid2.currentTime;
+		/*if(vid.currentTime != vid2.currentTime){
+			vid.currentTime = vid2.currentTime;	
+		}
+		else if(vid2.currentTime != vid.currentTime){
+			vid2.currentTime = vid.currentTime;	
+		}
+		else{
+			
+		}*/
+		if(vid.readyState == 0){
+			lblvps.innerHTML = "No information is available about the media resource.";
+		}
+		else if(vid.readyState == 1){
+			lblvps.innerHTML = "Enough of the media resource has been retrieved that the metadata attributes are initialized. Seeking will no longer raise an exception.";
+		}
+		else if(vid.readyState == 2){
+			lblvps.innerHTML = "Data is available for the current playback position, but not enough to actually play more than one frame.";
+		}
+		else if(vid.readyState == 3){
+			lblvps.innerHTML = "Data for the current playback position as well as for at least a little bit of time into the future is available (in other words, at least two frames of video, for example).";	
+		}
+		else if(vid.readyState == 4){
+			lblvps.innerHTML = "Enough data is available—and the download rate is high enough—that the media can be played through to the end without interruption.";
+		}
+		else{
+
+		}
 	}
 
 }
